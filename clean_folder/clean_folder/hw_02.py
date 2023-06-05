@@ -2,7 +2,7 @@ import pathlib
 from pathlib import Path
 import re
 import shutil
-
+import sys
 
 def customize_file(file):
     return translate(pathlib.PurePath(file).stem)+pathlib.PurePath(file).suffix
@@ -125,8 +125,17 @@ def unpack(arc):
 
 
 def main():
+    try:
+        if pathlib.Path(sys.argv[1]).exists():
+            parce_folder=sys.argv[1]
     
-    parce_folder = input_folder()
+        else:
+            print('!!!!No such folder!!!!')
+            exit()
+    except IndexError:
+        print("Please, add folder!!!!!")  
+        exit()  
+   
     sorted = parce_folder # можно отдельно указать,например: +/sorted
     list_files, list_dir_del = parsing(parce_folder) # распарcинг папки
 
